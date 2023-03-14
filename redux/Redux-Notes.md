@@ -1,4 +1,4 @@
-# Three Core Concepts Contd
+# Three Core Concepts of Redux
 
 ---
 
@@ -24,3 +24,12 @@
      Reducer (prevState, Action) => {
      return newState
      }
+
+# Actions
+---
+- The only way your application can interact with the store
+- Carry some information from your  app to the redux
+- Plain Javascript object
+- Have a 'type' property that describe something that happened in the application
+- the 'type' property is typically defined as string constants
+
