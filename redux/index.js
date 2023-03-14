@@ -1,3 +1,9 @@
+// Import the Redux
+const redux = require("redux");
+
+// Configure Redux Store and pass it to {CreateStore}
+const createStore = redux.legacy_createStore;
+
 /**
  * @summary: 1) we define a string constant that indicates the type of the action
  * @this {CAKE_ORDERED} is the Type of the action {object}
@@ -22,7 +28,6 @@ function orderCake() {
  */
 const initialState = {
   numOfCakes: 10,
-  anotherProperty: 0,
 };
 
 /**
@@ -49,3 +54,25 @@ const reducer = (state = initialState, action = orderCake) => {
       return state;
   }
 };
+
+// Create Redux store
+const store = createStore(reducer);
+
+// Get the current state of the store
+console.log(`initial state`, store.getState());
+
+// subscribe the app to the changes in the state
+const unsubscribe = store.subscribe(() => {
+  console.log(`updated state:`, store.getState());
+});
+
+// Dispatching the Action
+store.dispatch(orderCake());
+store.dispatch(orderCake());
+store.dispatch(orderCake());
+store.dispatch(orderCake());
+store.dispatch(orderCake());
+store.dispatch(orderCake());
+
+// Unsubscribe to the changes of the store (STOP LISTEN)
+unsubscribe();
