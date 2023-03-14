@@ -7,9 +7,10 @@ const createStore = redux.legacy_createStore;
 /**
  * @summary: 1) we define a string constant that indicates the type of the action
  * @this {CAKE_ORDERED} is the Type of the action {object}
+ * @this {CAKE_RESTOCKED} is the Type of the action {object}
  */
 const CAKE_ORDERED = "CAKE_ORDERED";
-
+const CAKE_RESTOCKED = "CAKE_RESTOCKED";
 /**
  * @summary: 2) define our Action. Remember: an action is an {object} that has a Type property
  * @this {orderCake} is a function that will return the Action, and the Action itself will contain an the object that contain its type (type of action)
@@ -18,7 +19,14 @@ const CAKE_ORDERED = "CAKE_ORDERED";
 function orderCake() {
   return {
     type: CAKE_ORDERED,
-    quantity: 1,
+    payload: 1,
+  };
+}
+
+function restockCake(qnt = 1) {
+  return {
+    type: CAKE_RESTOCKED,
+    payload: qnt,
   };
 }
 
@@ -48,6 +56,11 @@ const reducer = (state = initialState, action = orderCake) => {
         // key {numOfCakes} : value {state.numOfCakes} minus 1
         numOfCakes: state.numOfCakes - 1,
       };
+    case CAKE_RESTOCKED:
+      return {
+        ...state,
+        numOfCakes: state.numOfCakes + action.payload,
+      };
     // In case the type isn't: CAKE_ORDERED
     default:
       // Return the same previous state
@@ -70,9 +83,8 @@ const unsubscribe = store.subscribe(() => {
 store.dispatch(orderCake());
 store.dispatch(orderCake());
 store.dispatch(orderCake());
-store.dispatch(orderCake());
-store.dispatch(orderCake());
-store.dispatch(orderCake());
+
+store.dispatch(restockCake(3));
 
 // Unsubscribe to the changes of the store (STOP LISTEN)
 unsubscribe();
