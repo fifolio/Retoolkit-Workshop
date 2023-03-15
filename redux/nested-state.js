@@ -51,4 +51,8 @@ const unsubscribe = store.subscribe(() => {
   console.log("Updated state:", store.getState());
 });
 
-store.dispatch(updateStCode(6533));
+// set new stCode with updated value
+store.dispatch(updateStCode(76832));
+
+// unsubscribe from listening
+unsubscribe();
