@@ -3,6 +3,13 @@ const redux = require("redux");
 const bindActionCreators = redux.bindActionCreators;
 const combineReducers = redux.combineReducers;
 
+// Import and Create Middleware
+const applyMiddleware = redux.applyMiddleware;
+
+// Import Redux Logger
+const reduxLogger = require("redux-logger");
+const logger = reduxLogger.createLogger();
+
 // Configure Redux Store and pass it to {CreateStore}
 const createStore = redux.legacy_createStore;
 
@@ -123,15 +130,13 @@ const rootReducer = combineReducers({
 });
 
 // Create Redux store
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, applyMiddleware(logger));
 
 // Get the current state of the store
 console.log(`initial state`, store.getState());
 
 // subscribe the app to the changes in the state
-const unsubscribe = store.subscribe(() => {
-  console.log(`updated state:`, store.getState());
-});
+const unsubscribe = store.subscribe(function(){});
 
 // Dispatching the Action
 // store.dispatch(orderCake());

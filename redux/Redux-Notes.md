@@ -58,3 +58,15 @@ Responsibilities:
 - The store allows our application to register listeners through the {Subscribe method}.
 - The Subscribe method, accepts a {Function} as its Argument, which is executed anytime the state in the Redux store changes
   > Handles unregistering of listeners via the function returned by **subscribe(listener)**
+
+# Middleware
+
+---
+
+"is the suggested wat to extend Redux with custom functionality"
+
+- Provides a third-party extension point between Dispatching an action, and the moment it reaches the Reducer
+- Use middleware for:
+  > Logging,
+  > Crash reporting,
+  > preforming asynchronous tasks, etc
