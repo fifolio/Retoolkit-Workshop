@@ -12,6 +12,10 @@ const createStore = redux.legacy_createStore;
  */
 const CAKE_ORDERED = "CAKE_ORDERED";
 const CAKE_RESTOCKED = "CAKE_RESTOCKED";
+
+const ICECREAM_ORDERED = "ICECREAM_ORDERED";
+const ICECREAM_RESTOCKED = "ICECREAM_RESTOCKED";
+
 /**
  * @summary: 2) define our Action. Remember: an action is an {object} that has a Type property
  * @this {orderCake} is a function that will return the Action, and the Action itself will contain an the object that contain its type (type of action)
@@ -31,12 +35,27 @@ function restockCake(qnt = 1) {
   };
 }
 
+function orderIceCream(qnt = 1) {
+  return {
+    type: ICECREAM_ORDERED,
+    payload: qnt,
+  };
+}
+
+function restockIceCream(qnt = 1) {
+  return {
+    type: ICECREAM_RESTOCKED,
+    payload: qnt,
+  };
+}
+
 /**
  * @summary: 3) define the Initial State of the store
  * @this {initialState} is an Object that store within it the {numOfCake} which save the initial value in the state
  */
 const initialState = {
   numOfCakes: 10,
+  numOfIceCreams: 20,
 };
 
 /**
@@ -62,7 +81,17 @@ const reducer = (state = initialState, action = orderCake) => {
         ...state,
         numOfCakes: state.numOfCakes + action.payload,
       };
-    // In case the type isn't: CAKE_ORDERED
+    case ICECREAM_ORDERED:
+      return {
+        ...state,
+        numOfIceCreams: state.numOfIceCreams - 1,
+      };
+    case ICECREAM_RESTOCKED:
+      return {
+        ...state,
+        numOfIceCreams: state.numOfIceCreams + action.payload,
+      };
+    // In case the type isn't not found
     default:
       // Return the same previous state
       return state;
@@ -91,13 +120,17 @@ const unsubscribe = store.subscribe(() => {
  * @this {bindActionCreators} is a function that takes 2 params, the 1st param is an object that contains all the Actions we want to dispatch. the 2nd param is like "where to dispatch the action to"
  */
 
-const actions = bindActionCreators({ orderCake, restockCake }, store.dispatch);
+const actions = bindActionCreators(
+  { orderCake, restockCake, orderIceCream, restockIceCream },
+  store.dispatch
+);
 
 // dispatching
 actions.orderCake();
-actions.orderCake();
-actions.orderCake();
-actions.restockCake(3);
+actions.orderIceCream();
+
+actions.restockCake();
+actions.restockIceCream();
 
 // Unsubscribe to the changes of the store (STOP LISTEN)
 unsubscribe();
