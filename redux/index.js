@@ -32,14 +32,14 @@ function restockCake(qnt = 1) {
 
 /**
  * @summary: 3) define the Initial State of the store
- * @this {initialState} is an Object that store inside the {numOfCake} which save the initial value in the store
+ * @this {initialState} is an Object that store within it the {numOfCake} which save the initial value in the state
  */
 const initialState = {
   numOfCakes: 10,
 };
 
 /**
- * @summary: 3) define the Reducer that gets 2 params to deal with, the {previousState} and the {action} that contain the object that have the values to update
+ * @summary: 4) define the Reducer that gets 2 params to deal with, the {previousState} and the {action} that contain the object that have the values to update
  * @param {state} -> is to receive the initial State value
  * @param {action} -> is to receive the Action {object} with all the updated values
  */
