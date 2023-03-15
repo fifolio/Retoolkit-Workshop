@@ -93,4 +93,5 @@ store.subscribe(() => {
   console.log(store.getState());
 });
 
+// Dispatch {fetchUsers} function to the Store
 store.dispatch(fetchUsers());
