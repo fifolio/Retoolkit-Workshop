@@ -1,6 +1,7 @@
 // Import the Redux
 const redux = require("redux");
 const bindActionCreators = redux.bindActionCreators;
+const combineReducers = redux.combineReducers;
 
 // Configure Redux Store and pass it to {CreateStore}
 const createStore = redux.legacy_createStore;
@@ -58,13 +59,20 @@ const initialState = {
   numOfIceCreams: 20,
 };
 
+const initialCakeState = {
+  numOfCakes: 10,
+};
+
+const initialIceCreamState = {
+  numOfIceCreams: 20,
+};
 /**
  * @summary: 4) define the Reducer that gets 2 params to deal with, the {previousState} and the {action} that contain the object that have the values to update
  * @param {state} -> is to receive the initial State value
  * @param {action} -> is to receive the Action {object} with all the updated values
  */
 
-const reducer = (state = initialState, action = orderCake) => {
+const cakeReducer = (state = initialCakeState, action) => {
   // Check for Action Type Property
   switch (action.type) {
     // In case the type is: CAKE_ORDERED
@@ -81,6 +89,16 @@ const reducer = (state = initialState, action = orderCake) => {
         ...state,
         numOfCakes: state.numOfCakes + action.payload,
       };
+    // In case the type isn't not found
+    default:
+      // Return the same previous state
+      return state;
+  }
+};
+
+const iceCreamReducer = (state = initialIceCreamState, action) => {
+  // Check for Action Type Property
+  switch (action.type) {
     case ICECREAM_ORDERED:
       return {
         ...state,
@@ -98,8 +116,14 @@ const reducer = (state = initialState, action = orderCake) => {
   }
 };
 
+// Create {rootReducer} to combine Reducers
+const rootReducer = combineReducers({
+  Cake: cakeReducer,
+  IceCream: iceCreamReducer,
+});
+
 // Create Redux store
-const store = createStore(reducer);
+const store = createStore(rootReducer);
 
 // Get the current state of the store
 console.log(`initial state`, store.getState());
