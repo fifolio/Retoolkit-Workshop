@@ -1,5 +1,6 @@
 // Import the Redux
 const redux = require("redux");
+const bindActionCreators = redux.bindActionCreators;
 
 // Configure Redux Store and pass it to {CreateStore}
 const createStore = redux.legacy_createStore;
@@ -80,11 +81,23 @@ const unsubscribe = store.subscribe(() => {
 });
 
 // Dispatching the Action
-store.dispatch(orderCake());
-store.dispatch(orderCake());
-store.dispatch(orderCake());
+// store.dispatch(orderCake());
+// store.dispatch(orderCake());
+// store.dispatch(orderCake());
+// store.dispatch(restockCake(3));
 
-store.dispatch(restockCake(3));
+/**
+ * @summary: Combined couple of actions to dispatch to the store.
+ * @this {bindActionCreators} is a function that takes 2 params, the 1st param is an object that contains all the Actions we want to dispatch. the 2nd param is like "where to dispatch the action to"
+ */
+
+const actions = bindActionCreators({ orderCake, restockCake }, store.dispatch);
+
+// dispatching
+actions.orderCake();
+actions.orderCake();
+actions.orderCake();
+actions.restockCake(3);
 
 // Unsubscribe to the changes of the store (STOP LISTEN)
 unsubscribe();
