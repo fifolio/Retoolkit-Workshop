@@ -9,9 +9,7 @@ const iceCreamSliceActions =
 
 console.log("Initial state:", store.getState());
 
-const unsubscribe = store.subscribe(() => {
-  console.log("Updated state", store.getState());
-});
+const unsubscribe = store.subscribe(() => {});
 
 // Dispatching Actions
 store.dispatch(cakeActions.ordered());
@@ -22,7 +20,5 @@ store.dispatch(cakeActions.restocked(4));
 store.dispatch(iceCreamSliceActions.ordered());
 store.dispatch(iceCreamSliceActions.ordered());
 store.dispatch(iceCreamSliceActions.restocked(2));
-
-
 
 unsubscribe();
