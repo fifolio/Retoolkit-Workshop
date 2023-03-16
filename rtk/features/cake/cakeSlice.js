@@ -18,12 +18,12 @@ const cakeSlice = createSlice({
   // Set the reducer
   reducers: {
     // Define the {ordered} reducer
-    ordered: (state) => {
-      state.numOfCake--;
+    ordered: (initialState) => {
+      initialState.numOfCake--;
     },
     // Define the {restocked} reducer
-    restocked: (state, action) => {
-      state.numOfCake += action.payload;
+    restocked: (initialState, action) => {
+      initialState.numOfCake += action.payload;
     },
   },
 });
