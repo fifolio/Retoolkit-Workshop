@@ -2,14 +2,17 @@
 const configureStore = require("@reduxjs/toolkit").configureStore;
 
 // Import cakeSlice Reducer
-const cakeReducer = require("../features/cake/cakeSlice");
+const cakeSlice = require("../features/cake/cakeSlice");
+// Import iceCream Reducer
+const iceCreamSlice = require("../features/icecream/iceCreamSlice");
 
 // assign configureStore to {Store} constant
 const store = configureStore({
-    reducer: {
-        cake: cakeReducer,
-    }
+  reducer: {
+    cake: cakeSlice,
+    iceCream: iceCreamSlice,
+  },
 });
 
 // Export the Store
-module.exports = store 
+module.exports = store;
